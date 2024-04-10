@@ -1,0 +1,78 @@
+Day 1:
+  Patient 1 is assigned Nurse 4
+  Patient 2 is assigned Nurse 2
+  Patient 5 is assigned Nurse 4
+  Patient 11 is assigned Nurse 1
+  Patient 12 is assigned Nurse 2
+  Patient 14 is assigned Nurse 2
+  Patient 20 is assigned Nurse 3
+  Patient 22 is assigned Nurse 4
+  Patient 24 is assigned Nurse 2
+  Patient 25 is assigned Nurse 3
+  Patient 29 is assigned Nurse 1
+  Patient 33 is assigned Nurse 2
+  Patient 34 is assigned Nurse 3
+  Patient 35 is assigned Nurse 1
+Day 2:
+  Patient 3 is assigned Nurse 1
+  Patient 4 is assigned Nurse 1
+  Patient 6 is assigned Nurse 2
+  Patient 7 is assigned Nurse 2
+  Patient 8 is assigned Nurse 1
+  Patient 9 is assigned Nurse 1
+  Patient 12 is assigned Nurse 2
+  Patient 13 is assigned Nurse 4
+  Patient 14 is assigned Nurse 2
+  Patient 17 is assigned Nurse 4
+  Patient 18 is assigned Nurse 2
+  Patient 19 is assigned Nurse 4
+  Patient 20 is assigned Nurse 1
+  Patient 21 is assigned Nurse 2
+  Patient 22 is assigned Nurse 4
+  Patient 25 is assigned Nurse 3
+  Patient 30 is assigned Nurse 1
+Day 3:
+  Patient 1 is assigned Nurse 1
+  Patient 6 is assigned Nurse 2
+  Patient 12 is assigned Nurse 2
+  Patient 17 is assigned Nurse 1
+  Patient 18 is assigned Nurse 2
+  Patient 21 is assigned Nurse 1
+  Patient 25 is assigned Nurse 2
+  Patient 26 is assigned Nurse 4
+  Patient 27 is assigned Nurse 2
+  Patient 30 is assigned Nurse 4
+  Patient 31 is assigned Nurse 4
+  Patient 32 is assigned Nurse 4
+Day 4:
+  Patient 5 is assigned Nurse 4
+  Patient 7 is assigned Nurse 3
+  Patient 10 is assigned Nurse 2
+  Patient 14 is assigned Nurse 2
+  Patient 16 is assigned Nurse 4
+  Patient 21 is assigned Nurse 4
+  Patient 22 is assigned Nurse 1
+  Patient 23 is assigned Nurse 2
+  Patient 27 is assigned Nurse 2
+  Patient 29 is assigned Nurse 1
+  Patient 33 is assigned Nurse 2
+Day 5:
+  Patient 2 is assigned Nurse 2
+  Patient 3 is assigned Nurse 4
+  Patient 4 is assigned Nurse 1
+  Patient 6 is assigned Nurse 2
+  Patient 9 is assigned Nurse 4
+  Patient 10 is assigned Nurse 2
+  Patient 15 is assigned Nurse 4
+  Patient 17 is assigned Nurse 1
+  Patient 18 is assigned Nurse 2
+  Patient 20 is assigned Nurse 3
+  Patient 23 is assigned Nurse 3
+  Patient 24 is assigned Nurse 1
+  Patient 28 is assigned Nurse 3
+  Patient 30 is assigned Nurse 1
+  Patient 31 is assigned Nurse 1
+  Patient 35 is assigned Nurse 1
+0.8421291220899404
+
+Process finished with exit code 0
