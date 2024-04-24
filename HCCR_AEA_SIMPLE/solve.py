@@ -17,8 +17,7 @@ def main(number_of_patients):
     df_n = pd.read_excel(data_dir, 'nurses', engine='openpyxl').fillna(0).astype('int')
 
     # Extract relevant data
-    number_days = 6  # Planning horizon
-    number_hours = 1001
+    number_days = 7  # Planning horizon
     number_patiens = df.shape[0] - 1  # Number of patients
     frequency = df["f"].astype('int').tolist()  # Frequency of visit for every patient
     et = df["et"].astype('int').tolist()  # Earliest service start time for each patient
@@ -30,9 +29,7 @@ def main(number_of_patients):
     bigM = 10000  # Infinitely large number
     X, Y = df["x"].tolist(), df["y"].tolist()  # Coordinates X and Y of each patient and depot
     depot = [X[0], Y[0]]  # Depot coordinates
-
-    grid = dist(X, Y, bigM)  # Get distance matrix
-
+    grid = dist(X, Y)  # Get distance matrix
     start_time = timeit.default_timer()
 
     # Create the solver
@@ -48,8 +45,7 @@ def main(number_of_patients):
     objectiveFunction(solver, d, number_patiens)
 
     # Add master constraints to the solver
-    masterConstraints(solver, d, x, y, number_nurses, number_patiens, number_days, number_hours, q, Q, frequency, et,
-                      lt)
+    masterConstraints(solver, d, x, y, number_nurses, number_patiens, number_days, q, Q, frequency)
 
     # Run solver
     status = solver.Solve()
@@ -63,7 +59,7 @@ def main(number_of_patients):
         sol_y = {key: y[key].solution_value() for key in y}
 
         # Print solution
-        printSolution(solver, sol_d, sol_x, sol_y, number_nurses, number_patiens, number_days, df, df_n, q, frequency)
+        printSolution(sol_y, number_nurses, number_patiens, number_days, df, grid)
     else:
         print('The problem does not have an optimal solution.')
 
@@ -71,5 +67,5 @@ def main(number_of_patients):
 
 
 if __name__ == "__main__":
-    number_of_patients = 100  # Instance size (30/35/40/100)
+    number_of_patients = 30  # Instance size (30/35/40/100)
     main(number_of_patients)

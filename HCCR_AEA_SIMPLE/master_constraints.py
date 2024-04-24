@@ -1,4 +1,4 @@
-def masterConstraints(M, d, x, y, nourses, patients, days, hours, q, Q, f, et, lt):
+def masterConstraints(M, d, x, y, nourses, patients, days, q, Q, f):
     '''constraint 1'''
     for j in range(patients):
         M.Add(sum(x[i, j] for i in range(nourses)) == d[j])
@@ -26,6 +26,5 @@ def masterConstraints(M, d, x, y, nourses, patients, days, hours, q, Q, f, et, l
                 for tou in range(1, (4 - (f[j + 1]) + 1)):
                     if (k + tou) <= 4:
                         M.Add(y[i, j + 1, k] + y[i, j + 1, k + tou] <= 1)
-
 
 

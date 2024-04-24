@@ -13,3 +13,4 @@ def decisionVariables(solver, nourses, patients, days, patients_variable, nourse
         for j in range(patients + 1):  # +1 is for depot
             for k in range(days):
                 nourses_patients_day[i, j, k] = solver.BoolVar('y_%i_%i_%i' % (i, j, k))
+
