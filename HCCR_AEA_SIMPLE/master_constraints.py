@@ -27,4 +27,3 @@ def masterConstraints(M, d, x, y, nourses, patients, days, q, Q, f):
                     if (k + tou) <= 4:
                         M.Add(y[i, j + 1, k] + y[i, j + 1, k + tou] <= 1)
 
-
