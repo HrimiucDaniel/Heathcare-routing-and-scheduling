@@ -38,8 +38,8 @@ def initialize_population(num_particles, num_days, num_nurses, num_patients, pat
 
 
 def initialize_weights():
-    fitness_weight = 0.8
-    compliance_weight = 0.1
-    distance_weight = 0.1
+    fitness_weight = 0.6
+    compliance_weight = 0.2
+    distance_weight = 0.2
     return fitness_weight, compliance_weight, distance_weight
 
