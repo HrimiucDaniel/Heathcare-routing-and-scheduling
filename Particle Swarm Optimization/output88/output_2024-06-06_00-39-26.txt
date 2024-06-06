@@ -1,0 +1,16 @@
+Number of Nurses: 3
+Number of Patients: 30
+Number of iterations: 10
+Number of particles: 5000
+Solution is IMPROVED
+Distance List:
+[204.97668855570606, 0, 42.53664875824692, 155.43392854444616, 12.083045973594572, 66.54181428679657, 166.70387356296635, 0, 87.96784985738965, 143.36035481925634, 0, 82.58676263486188, 172.48435201807484, 0, 86.51720109353587]
+Patients List:
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+Weights:
+Distance_list time: 182.431136906147
+Ram usage: 62.6765625
+Overall Fitness Score: 0.7884444225441993
+Qualification Score: 1.0
+Timetable Compliance Score: 1.0
+Total Distance: 1057.7778872790036

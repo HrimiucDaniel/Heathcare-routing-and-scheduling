@@ -79,7 +79,6 @@ def calculate_travel_distance_all_days(schedule, hospital_x, hospital_y, patient
             travel_distance = 0
             previous_x, previous_y = hospital_x, hospital_y
             for patient_index, assignment in enumerate(assignments):
-                #print(assignment)
                 if assignment:
                     current_x, current_y = patient_x[patient_index], patient_y[patient_index]
                     travel_distance += np.sqrt((current_x - previous_x) ** 2 + (current_y - previous_y) ** 2)
@@ -126,7 +125,7 @@ def calculate_combined_fitness(schedule, fitness_weight, compliance_weight, dist
                                                     hospital_late_time)
     total_distance = calculate_total_travel_distance(schedule, hospital_x, hospital_y, patients_x, patients_y)
 
-    max_distance = 10000
+    max_distance = 1000
     normalized_distance = 1 - (total_distance / max_distance)
 
     #print(fitness_score, compliance_score, normalized_distance)

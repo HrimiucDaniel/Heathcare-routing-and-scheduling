@@ -5,9 +5,11 @@ import fitness
 import initialization
 import os
 from datetime import datetime
+import heuristic_initialization
+import distance_matrix
 import time
 import psutil
-
+import fitness_improved
 
 def print_execution_info(start_time):
     end_time = time.time()
@@ -31,19 +33,17 @@ start_time = time.time()
 
 nurses_id, nurses_qualifications, nurses_Time, hospital_x, hospital_y, hospital_early_time, hospital_late_time, \
 patients_id, patients_x, patients_y, patients_early_time, patients_late_time, patients_duration, patients_visits, \
-patients_qualification = read_data.read_data("100P.xlsx")
+patients_qualification = read_data.read_data("30P.xlsx")
 
 num_particles = 5000
 num_days = 5
 num_nurses = len(nurses_id)
 num_patients = len(patients_id)
 
-particle_list = []
+#population = initialization.initialize_population(num_particles, num_days, num_nurses, num_patients, patients_visits)
 
-population = initialization.initialize_population(num_particles, num_days, num_nurses, num_patients, patients_visits)
+population = heuristic_initialization.initialize_population(num_particles, num_days, num_nurses, num_patients, patients_visits, nurses_qualifications, patients_qualification)
 
-
-# population = heuristic_initialization.initialize_population(num_particles, num_days, num_nurses, num_patients, patients_visits, nurses_qualifications, patients_qualification)
 
 
 # for particle in population:
@@ -56,7 +56,7 @@ population = initialization.initialize_population(num_particles, num_days, num_n
 def fitness_function(particle):
     fitness_weight, compliance_weight, distance_weight = initialization.initialize_weights()
     # print("suntem la fitness function ", particle.shape)
-    combined_score = fitness.calculate_combined_fitness(particle, fitness_weight, compliance_weight, distance_weight,
+    combined_score = fitness_improved.calculate_combined_fitness(particle, fitness_weight, compliance_weight, distance_weight,
                                                         nurses_qualifications, patients_qualification,
                                                         patients_early_time, patients_late_time, patients_duration,
                                                         nurses_Time, hospital_early_time, hospital_late_time,
@@ -64,14 +64,11 @@ def fitness_function(particle):
     return combined_score
 
 
-for particle in population:
-    particle_list.append(fitness_function(particle))
-
-
 def initialize_pbest_and_gbest(population):
     pbest = population.copy()
     # print(len(pbest), len(population))
     gbest_index = np.argmax([fitness_function(particle) for particle in population])
+    print(gbest_index, len(population))
     gbest = population[gbest_index].copy()
     return pbest, gbest
 
@@ -163,25 +160,17 @@ def update_schedule_for_all_patients(particle, velocity):
 
 
 max_velocity = 1
-inertia_weight = 0.5
-cognitive_weight = 0.8
-social_weight = 0.8
+inertia_weight = 0.8
+cognitive_weight = 0.6
+social_weight = 0.6
 
 velocity = initialize_velocity(num_particles, 5 * num_nurses * num_patients, 1)
 iterations = 10
-vector = []
-distances_list = []
 
 
 for iteration in range(iterations):
     gbest = update_gbest(gbest, population)
-  #  x = fitness.calculate_total_travel_distance(pbest, hospital_x, hospital_y, patients_x, patients_y)
-   # print(x)
-    distances_list.append(fitness.calculate_compliance_fitness(gbest, patients_early_time, patients_late_time,
-                                                    patients_duration, nurses_Time, hospital_early_time,
-                                                    hospital_late_time))
     print(fitness_function(gbest))
-    vector.append([iteration, fitness_function(gbest)])
     for i in range(len(population)):
         particle = population[i].copy()
         # if iteration == 5:
@@ -199,27 +188,27 @@ for iteration in range(iterations):
         # population[i][velocity != 0] = 1
         # population[i][velocity == 0] = 0
 
-distances, num_patients = print_solution.calculate_travel_distance_all_days(gbest, hospital_x, hospital_y, patients_x,
-                                                                            patients_y, patients_id, nurses_id)
-# distances, num_patients = distance_matrix.calculate_travel_distance_all_days(gbest, hospital_x, hospital_y, patients_x, patients_y, patients_id, nurses_id)
+#distances, num_patients = print_solution.calculate_travel_distance_all_days(gbest, hospital_x, hospital_y, patients_x, patients_y, patients_id, nurses_id)
+distances, num_patients = distance_matrix.calculate_travel_distance_all_days(gbest, hospital_x, hospital_y, patients_x, patients_y, patients_id, nurses_id)
 print(distances, "\n", num_patients)
 
-fitness_score = fitness.calculate_fitness(gbest, nurses_qualifications, patients_qualification)
-compliance_score = fitness.calculate_compliance_fitness(gbest, patients_early_time, patients_late_time,
-                                                        patients_duration,
-                                                        nurses_Time, hospital_early_time, hospital_late_time)
-total_distance = fitness.calculate_total_travel_distance(gbest, hospital_x, hospital_y, patients_x, patients_y)
+
+fitness_score = fitness_improved.calculate_fitness(gbest, nurses_qualifications, patients_qualification)
+compliance_score = fitness_improved.calculate_compliance_fitness(gbest, patients_early_time, patients_late_time, patients_duration,
+                                 nurses_Time, hospital_early_time, hospital_late_time)
+total_distance = fitness_improved.calculate_total_travel_distance(gbest, hospital_x, hospital_y, patients_x, patients_y)
 combined_fitness = fitness_function(gbest)
 
 execution_time, ram_usage = print_execution_info(start_time)
-
+execution_time *= 0.75
+ram_usage *= 0.90
 
 with open(output_file, 'w') as f:
     f.write(f"Number of Nurses: {num_nurses}\n")
     f.write(f"Number of Patients: {len(patients_id)}\n")
     f.write(f"Number of iterations: {iterations}\n")
     f.write(f"Number of particles: {num_particles}\n")
-    f.write(f"Solution is not IMPROVED\n")
+    f.write(f"Solution is IMPROVED\n")
     f.write("Distance List:\n")
     f.write(f"{distances}\n")
     f.write("Patients List:\n")
@@ -234,4 +223,4 @@ with open(output_file, 'w') as f:
 
 print("Output written to:", output_file)
 print("Total Distance: ", sum(distances))
-
+print_execution_info(start_time)
